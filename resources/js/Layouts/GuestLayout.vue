@@ -59,18 +59,18 @@ const props = defineProps({
                             <div class="row">
                                 <div class="col-md-12">
                                     <p style="font-weight: 500; font-size: 14px; color: white">
-                                        <i class="ti ti-phone"></i> 021 12345678
+                                        <!-- <i class="ti ti-phone"></i> 021 12345678 -->
                                     </p>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-9">
                                     <span style="font-weight: 500; font-size: 14px; color: white">
-                                        <i class="ti ti-mail"></i> gtkmadrasah@kemenag.go.id
+                                        <!-- <i class="ti ti-mail"></i> gtkmadrasah@kemenag.go.id -->
                                     </span>
                                 </div>
                                 <div class="col-md-3">
-                                    <div style="float: right">
+                                    <!-- <div style="float: right">
                                         <a href="https://www.facebook.com/gtkmadrasah17/" _target="blank">
                                             <i
                                                 class="ti ti-brand-facebook"
@@ -89,7 +89,7 @@ const props = defineProps({
                                                 style="color: white; font-size: 25px; margin-left: 20px"
                                             ></i>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

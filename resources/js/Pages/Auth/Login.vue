@@ -51,10 +51,7 @@ const toggleShowPassword = () => {
 <template>
     <GuestLayout head-title="Log in">
         <h2 class="mb-3 fs-7 fw-bolder">MASUK</h2>
-        <p class="mb-9">
-            SIAAPP (Sistem Informasi Administrasi dan Assesmen Pengawas dan Pendidik) merupakan sistem rekrutmen,
-            seleksi, pengangkatan, dan penilaian kinerja pengawas dan pendidik pada madrasah.
-        </p>
+        <p class="mb-9">Aplikasi Perpus</p>
 
         <div v-if="props.status" class="alert alert-warning" role="alert">
             {{ props.status }}
@@ -136,10 +133,10 @@ const toggleShowPassword = () => {
                 <span v-else>Masuk</span>
             </button>
 
-            <div class="d-flex align-items-center">
+            <!-- <div class="d-flex align-items-center">
                 <p class="fs-4 mb-0 fw-medium">Belum Memiliki akun?</p>
                 <Link :href="route('register')" class="text-primary fw-medium ms-2"> Daftar disini </Link>
-            </div>
+            </div> -->
         </form>
     </GuestLayout>
 </template>
