@@ -52,4 +52,21 @@ const permission = computed(() => page.props.user.permissions)
             <span class="hide-menu">Rak Buku</span>
         </Link>
     </div>
+    <div v-if="props.nameMenu == 'tarif_denda'">
+        <Link
+            v-show="permission.includes('view data tarif denda')"
+            :href="route('master.tarif_denda.index')"
+            class="sidebar-link"
+            :class="{ active: route().current('master.tarif_denda.index') }"
+            aria-expanded="false"
+        >
+            <div v-if="props.isSubMenu" class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+            </div>
+            <span v-else>
+                <i class="ti ti-database"></i>
+            </span>
+            <span class="hide-menu">Tarif Denda</span>
+        </Link>
+    </div>
 </template>

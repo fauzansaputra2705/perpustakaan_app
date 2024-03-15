@@ -9,6 +9,7 @@ use App\Http\Controllers\Master\{
     ExampleController,
     KategoriController,
     RakBukuController,
+    TarifDendaController,
 };
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -60,6 +61,11 @@ Route::group([
     Route::get('rak_buku/data', [RakBukuController::class, 'data'])
         ->name('rak_buku.data');
     Route::resource('rak_buku', RakBukuController::class);
+
+    //tarif_denda
+    Route::get('tarif_denda/data', [TarifDendaController::class, 'data'])
+        ->name('tarif_denda.data');
+    Route::resource('tarif_denda', TarifDendaController::class);
 });
 
 
