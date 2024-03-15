@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->bigInteger('kategori_id')->unsigned();
-            $table->bigInteger('rak_buku_id')->unsigned();
+            $table->bigInteger('rak_buku_id')->unsigned()->nullable();
             $table->string('isbn')->unique();
             $table->string('writer');
             $table->string('reviewer');

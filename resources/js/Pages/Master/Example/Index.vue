@@ -170,7 +170,7 @@ const submitUpdate = (id) => {
                 <div class="card">
                     <div class="border-bottom title-part-padding">
                         <h4 class="card-title mb-0">List Data Example</h4>
-                        <p>Berisikan semua data periode yang ada.</p>
+                        <p>Berisikan semua data example yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">

@@ -15,6 +15,7 @@ DataTable.use(DataTablesCore)
 let columnsDatatables = [
     { data: 'DT_RowIndex', name: 'DT_RowIndex', title: 'No', searchable: false, orderable: false },
     { data: 'nama', name: 'nama', title: 'Nama' },
+    { data: 'lokasi', name: 'lokasi', title: 'Lokasi' },
     { data: 'action', name: 'action', title: 'Opsi', searchable: false, orderable: false },
 ]
 
@@ -41,7 +42,7 @@ const optionsDatatables = {
 }
 
 let dt
-const tableKategori = ref()
+const tableRakBuku = ref()
 
 const page = usePage()
 const user = computed(() => page.props.auth.user)
@@ -49,7 +50,7 @@ const permission = computed(() => page.props.user.permissions)
 
 const ajaxDatatables = () => {
     const url = {
-        url: route('master.kategori.data'),
+        url: route('master.rak_buku.data'),
         dataType: 'JSON',
         data: function (d) {},
     }
@@ -59,10 +60,11 @@ const ajaxDatatables = () => {
 const form = useForm({
     id: '',
     nama: '',
+    lokasi: '',
 })
 
 onMounted(() => {
-    dt = tableKategori.value.dt
+    dt = tableRakBuku.value.dt
 
     $(dt.table().body()).on('click', 'a.edit', function () {
         let id = $(this).data('id')
@@ -83,7 +85,7 @@ const isEdit = ref(false)
 
 const create = () => {
     showModal.value = true
-    titleModal.value = 'Tambah Data Kategori'
+    titleModal.value = 'Tambah Data Rak Buku'
     isEdit.value = false
     form.reset()
 }
@@ -92,15 +94,16 @@ const edit = (id) => {
     form.reset()
     form.clearErrors()
     isEdit.value = true
-    $.get(route('master.kategori.edit', { id: id }))
+    $.get(route('master.rak_buku.edit', { id: id }))
         .done((response) => {
             showModal.value = true
-            titleModal.value = 'Edit Data Kategori'
+            titleModal.value = 'Edit Data Rak Buku'
 
             let data = response.data
 
             form.id = data.id
             form.nama = data.nama
+            form.lokasi = data.lokasi
         })
         .fail((errors) => {
             Alert('error', errors.responseJSON.message)
@@ -109,7 +112,7 @@ const edit = (id) => {
 
 const hapus = (id) => {
     showModalDelete.value = true
-    urlDelete.value = route('master.kategori.destroy', { id: id })
+    urlDelete.value = route('master.rak_buku.destroy', { id: id })
 }
 const closeModalDelete = () => {
     showModalDelete.value = false
@@ -127,7 +130,7 @@ const closeModalForm = () => {
 const submitStore = () => {
     form.transform((data) => ({
         ...data,
-    })).post(route('master.kategori.store'), {
+    })).post(route('master.rak_buku.store'), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil ditambahkan')
@@ -144,7 +147,7 @@ const submitStore = () => {
 const submitUpdate = (id) => {
     form.transform((data) => ({
         ...data,
-    })).put(route('master.kategori.update', { id: id }), {
+    })).put(route('master.rak_buku.update', { id: id }), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil diupdate')
@@ -160,12 +163,12 @@ const submitUpdate = (id) => {
 </script>
 
 <template>
-    <AuthenticatedLayout head-title="Data Kategori">
+    <AuthenticatedLayout head-title="Data Rak Buku">
         <CardHeaderBreadcrumb
-            title="Data Kategori"
+            title="Data Rak Buku"
             :breadcrumb="[
                 { nameMenu: 'Dashboard', urlMenu: user.role + '.dashboard' },
-                { nameMenu: 'Data Kategori', urlMenu: 'master.kategori.index' },
+                { nameMenu: 'Data Rak Buku', urlMenu: 'master.rak_buku.index' },
             ]"
         />
 
@@ -173,8 +176,8 @@ const submitUpdate = (id) => {
             <div class="col-12">
                 <div class="card">
                     <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">List Data Kategori</h4>
-                        <p>Berisikan semua data kategori yang ada.</p>
+                        <h4 class="card-title mb-0">List Data Rak Buku</h4>
+                        <p>Berisikan semua data periode yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
@@ -189,7 +192,7 @@ const submitUpdate = (id) => {
                         </div>
 
                         <DataTable
-                            ref="tableKategori"
+                            ref="tableRakBuku"
                             :columns="columnsDatatables"
                             :options="optionsDatatables"
                             :ajax="ajaxDatatables()"
@@ -203,7 +206,7 @@ const submitUpdate = (id) => {
     </AuthenticatedLayout>
 
     <Modal
-        id-modal="modalFormKategori"
+        id-modal="modalFormRak Buku"
         :title-modal="titleModal"
         :show-modal="showModal"
         max-width="md"
@@ -213,9 +216,16 @@ const submitUpdate = (id) => {
             <FormInput
                 v-model="form.nama"
                 type="text"
-                label="Nama Kategori"
+                label="Nama Rak Buku"
                 required
                 :error-message="form.errors.nama"
+            />
+            <FormInput
+                v-model="form.lokasi"
+                type="text"
+                label="Lokasi Rak Buku"
+                :required="false"
+                :error-message="form.errors.lokasi"
             />
         </div>
 
@@ -243,7 +253,7 @@ const submitUpdate = (id) => {
         </template>
     </Modal>
     <ModalDelete
-        id-modal="modalDeleteKategori"
+        id-modal="modalDeleteRak Buku"
         :show-modal="showModalDelete"
         :url="urlDelete"
         @is-close-modal="closeModalDelete"

@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property string $judul
  * @property int $kategori_id
- * @property int $rak_buku_id
+ * @property int|null $rak_buku_id
  * @property string $isbn
  * @property string $writer
  * @property string $reviewer

@@ -57,6 +57,7 @@ linkActiveManajemenAkun.value =
                         <span class="hide-menu">Data Example</span>
                     </Link>
                     <PermissionMenu name-menu="kategori" :is-sub-menu="true" />
+                    <PermissionMenu name-menu="rak_buku" :is-sub-menu="true" />
                 </li>
             </ul>
         </li>

@@ -23,6 +23,13 @@ class PermissionTableSeeder extends Seeder
                 'edit data kategori',
                 'delete data kategori',
             ],
+
+            'data rak buku' => [
+                'create data rak buku',
+                'view data rak buku',
+                'edit data rak buku',
+                'delete data rak buku',
+            ],
         ]);
 
         $permissions->map(function ($permission, $group) {

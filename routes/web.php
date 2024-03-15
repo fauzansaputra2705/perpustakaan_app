@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\{
     ExampleController,
     KategoriController,
+    RakBukuController,
 };
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -54,6 +55,11 @@ Route::group([
     Route::get('kategori/data', [KategoriController::class, 'data'])
         ->name('kategori.data');
     Route::resource('kategori', KategoriController::class);
+
+    //rak_buku
+    Route::get('rak_buku/data', [RakBukuController::class, 'data'])
+        ->name('rak_buku.data');
+    Route::resource('rak_buku', RakBukuController::class);
 });
 
 
