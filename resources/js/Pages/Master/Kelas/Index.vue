@@ -14,8 +14,8 @@ DataTable.use(DataTablesCore)
 
 let columnsDatatables = [
     { data: 'DT_RowIndex', name: 'DT_RowIndex', title: 'No', searchable: false, orderable: false },
-    { data: 'kategori', name: 'kategori', title: 'Kategori' },
-    { data: 'denda', name: 'denda', title: 'Denda' },
+    { data: 'nama', name: 'nama', title: 'Nama' },
+    { data: 'tingkat', name: 'tingkat', title: 'Tingkat' },
     { data: 'action', name: 'action', title: 'Opsi', searchable: false, orderable: false },
 ]
 
@@ -42,7 +42,7 @@ const optionsDatatables = {
 }
 
 let dt
-const tableTarifDenda = ref()
+const tableKelas = ref()
 
 const page = usePage()
 const user = computed(() => page.props.auth.user)
@@ -50,7 +50,7 @@ const permission = computed(() => page.props.user.permissions)
 
 const ajaxDatatables = () => {
     const url = {
-        url: route('master.tarif_denda.data'),
+        url: route('master.kelas.data'),
         dataType: 'JSON',
         data: function (d) {},
     }
@@ -59,12 +59,12 @@ const ajaxDatatables = () => {
 
 const form = useForm({
     id: '',
-    kategori: '',
-    denda: '',
+    nama: '',
+    tingkat: '',
 })
 
 onMounted(() => {
-    dt = tableTarifDenda.value.dt
+    dt = tableKelas.value.dt
 
     $(dt.table().body()).on('click', 'a.edit', function () {
         let id = $(this).data('id')
@@ -85,7 +85,7 @@ const isEdit = ref(false)
 
 const create = () => {
     showModal.value = true
-    titleModal.value = 'Tambah Data Tarif Denda'
+    titleModal.value = 'Tambah Data Kelas'
     isEdit.value = false
     form.reset()
 }
@@ -94,16 +94,16 @@ const edit = (id) => {
     form.reset()
     form.clearErrors()
     isEdit.value = true
-    $.get(route('master.tarif_denda.edit', { id: id }))
+    $.get(route('master.kelas.edit', { id: id }))
         .done((response) => {
             showModal.value = true
-            titleModal.value = 'Edit Data Tarif Denda'
+            titleModal.value = 'Edit Data Kelas'
 
             let data = response.data
 
             form.id = data.id
-            form.kategori = data.kategori
-            form.denda = data.denda
+            form.nama = data.nama
+            form.tingkat = data.tingkat
         })
         .fail((errors) => {
             Alert('error', errors.responseJSON.message)
@@ -112,7 +112,7 @@ const edit = (id) => {
 
 const hapus = (id) => {
     showModalDelete.value = true
-    urlDelete.value = route('master.tarif_denda.destroy', { id: id })
+    urlDelete.value = route('master.kelas.destroy', { id: id })
 }
 const closeModalDelete = () => {
     showModalDelete.value = false
@@ -130,7 +130,7 @@ const closeModalForm = () => {
 const submitStore = () => {
     form.transform((data) => ({
         ...data,
-    })).post(route('master.tarif_denda.store'), {
+    })).post(route('master.kelas.store'), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil ditambahkan')
@@ -147,7 +147,7 @@ const submitStore = () => {
 const submitUpdate = (id) => {
     form.transform((data) => ({
         ...data,
-    })).put(route('master.tarif_denda.update', { id: id }), {
+    })).put(route('master.kelas.update', { id: id }), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil diupdate')
@@ -163,12 +163,12 @@ const submitUpdate = (id) => {
 </script>
 
 <template>
-    <AuthenticatedLayout head-title="Data Tarif Denda">
+    <AuthenticatedLayout head-title="Data Kelas">
         <CardHeaderBreadcrumb
-            title="Data Tarif Denda"
+            title="Data Kelas"
             :breadcrumb="[
                 { nameMenu: 'Dashboard', urlMenu: user.role + '.dashboard' },
-                { nameMenu: 'Data Tarif Denda', urlMenu: 'master.tarif_denda.index' },
+                { nameMenu: 'Data Kelas', urlMenu: 'master.kelas.index' },
             ]"
         />
 
@@ -176,13 +176,13 @@ const submitUpdate = (id) => {
             <div class="col-12">
                 <div class="card">
                     <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">List Data Tarif Denda</h4>
-                        <p>Berisikan semua data tarif denda yang ada.</p>
+                        <h4 class="card-title mb-0">List Data Kelas</h4>
+                        <p>Berisikan semua data kelas yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
                             <button
-                                v-show="permission.includes('create data tarif denda')"
+                                v-show="permission.includes('create data kelas')"
                                 type="button"
                                 class="btn btn-primary btn-rounded m-t-10 mb-2"
                                 @click="create"
@@ -192,7 +192,7 @@ const submitUpdate = (id) => {
                         </div>
 
                         <DataTable
-                            ref="tableTarifDenda"
+                            ref="tableKelas"
                             :columns="columnsDatatables"
                             :options="optionsDatatables"
                             :ajax="ajaxDatatables()"
@@ -206,26 +206,21 @@ const submitUpdate = (id) => {
     </AuthenticatedLayout>
 
     <Modal
-        id-modal="modalFormTarifDenda"
+        id-modal="modalFormKelas"
         :title-modal="titleModal"
         :show-modal="showModal"
         max-width="md"
         @close-modal="closeModalForm"
     >
         <div class="container-fluid">
+            <FormInput v-model="form.nama" type="text" label="Nama Kelas" required :error-message="form.errors.nama" />
+
             <FormInput
-                v-model="form.kategori"
+                v-model="form.tingkat"
                 type="text"
-                label="Kategori Denda"
+                label="Tingkat Kelas"
                 required
-                :error-message="form.errors.kategori"
-            />
-            <FormInput
-                v-model="form.denda"
-                type="number"
-                label="Jumlah Denda"
-                required
-                :error-message="form.errors.denda"
+                :error-message="form.errors.tingkat"
             />
         </div>
 
@@ -253,7 +248,7 @@ const submitUpdate = (id) => {
         </template>
     </Modal>
     <ModalDelete
-        id-modal="modalDeleteTarifDenda"
+        id-modal="modalDeleteKelas"
         :show-modal="showModalDelete"
         :url="urlDelete"
         @is-close-modal="closeModalDelete"

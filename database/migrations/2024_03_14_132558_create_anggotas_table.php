@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('anggotas', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('kelas_id')->unsigned();
             $table->string('kode_anggota')->unique();
             $table->string('nama');
             $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
@@ -25,7 +26,7 @@ return new class extends Migration
             $table->string('foto')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('kelas_id')->references('id')->on('kelas');
         });
     }
 

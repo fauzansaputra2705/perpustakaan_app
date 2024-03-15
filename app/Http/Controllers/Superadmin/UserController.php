@@ -101,14 +101,14 @@ class UserController extends Controller
                         ';
                 }
 
-                $button .= '
-                        <a class="text-info edit" data-id="' . $data->id . '">
-                            <i class="ti ti-edit fs-5"></i>
-                        </a>
-                        <a class="text-dark delete ms-2" data-id="' . $data->id . '">
-                            <i class="ti ti-trash fs-5"></i>
-                        </a>
-                ';
+                // $button .= '
+                //         <a class="text-info edit" data-id="' . $data->id . '">
+                //             <i class="ti ti-edit fs-5"></i>
+                //         </a>
+                //         <a class="text-dark delete ms-2" data-id="' . $data->id . '">
+                //             <i class="ti ti-trash fs-5"></i>
+                //         </a>
+                // ';
                 $button .= '</div>';
 
                 return $button;

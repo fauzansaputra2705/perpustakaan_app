@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\{
     ExampleController,
     KategoriController,
+    KelasController,
     RakBukuController,
     TarifDendaController,
 };
@@ -66,6 +67,11 @@ Route::group([
     Route::get('tarif_denda/data', [TarifDendaController::class, 'data'])
         ->name('tarif_denda.data');
     Route::resource('tarif_denda', TarifDendaController::class);
+
+    //kelas
+    Route::get('kelas/data', [KelasController::class, 'data'])
+        ->name('kelas.data');
+    Route::resource('kelas', KelasController::class);
 });
 
 

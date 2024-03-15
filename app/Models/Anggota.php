@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-
 /**
  * App\Models\Anggota
  *
  * @property int $id
  * @property int $user_id
+ * @property int $kelas_id
  * @property string $kode_anggota
  * @property string $nama
  * @property string $jenis_kelamin
@@ -30,6 +30,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereFoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereJenisKelamin($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereKelasId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereKodeAnggota($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereNama($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota whereTanggalLahir($value)

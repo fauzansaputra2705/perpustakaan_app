@@ -177,12 +177,12 @@ const submitUpdate = (id) => {
                 <div class="card">
                     <div class="border-bottom title-part-padding">
                         <h4 class="card-title mb-0">List Data Rak Buku</h4>
-                        <p>Berisikan semua data periode yang ada.</p>
+                        <p>Berisikan semua data rak buku yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
                             <button
-                                v-show="permission.includes('create data kategori')"
+                                v-show="permission.includes('create data rak buku')"
                                 type="button"
                                 class="btn btn-primary btn-rounded m-t-10 mb-2"
                                 @click="create"

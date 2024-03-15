@@ -37,6 +37,13 @@ class PermissionTableSeeder extends Seeder
                 'edit data tarif denda',
                 'delete data tarif denda',
             ],
+
+            'data Kelas' => [
+                'create data kelas',
+                'view data kelas',
+                'edit data kelas',
+                'delete data kelas',
+            ],
         ]);
 
         $permissions->map(function ($permission, $group) {

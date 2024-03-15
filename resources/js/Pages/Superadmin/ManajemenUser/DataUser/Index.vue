@@ -262,11 +262,11 @@ const submitUpdate = (id) => {
                         <p>Berisikan semua data User yang ada.</p>
                     </div>
                     <div class="card-body">
-                        <div class="d-flex justify-content-end">
+                        <!-- <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-primary btn-rounded m-t-10 mb-2" @click="create">
                                 Tambah
                             </button>
-                        </div>
+                        </div> -->
 
                         <DataTable
                             ref="tableUsers"
