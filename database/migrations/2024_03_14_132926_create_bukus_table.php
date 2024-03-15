@@ -13,24 +13,19 @@ return new class extends Migration
     {
         Schema::create('bukus', function (Blueprint $table) {
             $table->id();
-            $table->string('judul');
             $table->bigInteger('kategori_id')->unsigned();
             $table->bigInteger('rak_buku_id')->unsigned()->nullable();
-            $table->string('isbn')->unique();
-            $table->string('writer');
-            $table->string('reviewer');
-            $table->string('translator');
-            $table->string('adapter');
-            $table->string('cover_designer');
-            $table->string('designer');
-            $table->string('ilustrator');
-            $table->string('editor');
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->date('publish_date');
+            $table->text('sinopsis');
             $table->string('publisher');
-            $table->integer('jumlah_halaman');
+            $table->string('author');
+            $table->string('language');
+            $table->string('isbn')->unique()->nullable();
             $table->integer('jumlah_stok');
             $table->integer('tahun_terbit');
-            $table->text('sinopsis');
-            $table->string('gambar');
+            $table->string('cover');
             $table->boolean('status_publish');
             $table->timestamps();
 

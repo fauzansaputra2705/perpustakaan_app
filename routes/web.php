@@ -6,6 +6,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\{
+    BukuController,
     ExampleController,
     KategoriController,
     KelasController,
@@ -40,6 +41,12 @@ Route::get('/dashboard', function () {
 Route::group(['as' => 'select_list.', 'prefix' => 'select_list', 'midleware' => 'auth'], function () {
     Route::get('/example', [SelectListController::class, 'getListExample'])
         ->name('example');
+
+    Route::get('/kategori', [SelectListController::class, 'getListKategori'])
+        ->name('kategori');
+
+    Route::get('/rak_buku', [SelectListController::class, 'getListRakBuku'])
+        ->name('rak_buku');
 });
 
 //Data Master
@@ -72,6 +79,11 @@ Route::group([
     Route::get('kelas/data', [KelasController::class, 'data'])
         ->name('kelas.data');
     Route::resource('kelas', KelasController::class);
+
+    //buku
+    Route::get('buku/data', [BukuController::class, 'data'])
+        ->name('buku.data');
+    Route::resource('buku', BukuController::class);
 });
 
 

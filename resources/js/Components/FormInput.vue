@@ -1,8 +1,4 @@
-/**
- * @author Muhammad Fauzan Saputra
- * @email fauzansaputra2705@gmail.com
- * @desc [description]
- */
+/** * @author Muhammad Fauzan Saputra * @email fauzansaputra2705@gmail.com * @desc [description] */
 
 <script setup>
 import { ref, toRef } from 'vue'

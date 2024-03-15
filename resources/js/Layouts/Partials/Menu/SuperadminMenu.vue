@@ -60,6 +60,7 @@ linkActiveManajemenAkun.value =
                     <PermissionMenu name-menu="rak_buku" :is-sub-menu="true" />
                     <PermissionMenu name-menu="tarif_denda" :is-sub-menu="true" />
                     <PermissionMenu name-menu="kelas" :is-sub-menu="true" />
+                    <PermissionMenu name-menu="buku" :is-sub-menu="true" />
                 </li>
             </ul>
         </li>

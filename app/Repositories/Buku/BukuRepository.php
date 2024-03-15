@@ -28,7 +28,19 @@ class BukuRepository extends BaseRepository implements BukuRepositoryInterface
 
         $d = $this->getModel()
             ->query()
-            ->select($selects);
+            ->select($selects)
+            ->join(
+                'kategoris',
+                'kategoris.id',
+                '=',
+                'bukus.kategori_id'
+            )
+            ->join(
+                'rak_bukus',
+                'rak_bukus.id',
+                '=',
+                'bukus.rak_buku_id'
+            );
 
         return $this->whenWhere($attr, $d);
     }

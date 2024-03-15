@@ -38,11 +38,18 @@ class PermissionTableSeeder extends Seeder
                 'delete data tarif denda',
             ],
 
-            'data Kelas' => [
+            'data kelas' => [
                 'create data kelas',
                 'view data kelas',
                 'edit data kelas',
                 'delete data kelas',
+            ],
+
+            'data buku' => [
+                'create data buku',
+                'view data buku',
+                'edit data buku',
+                'delete data buku',
             ],
         ]);
 
