@@ -16,7 +16,14 @@ class PermissionTableSeeder extends Seeder
      */
     public function run()
     {
-        $permissions = collect([]);
+        $permissions = collect([
+            'data kategori' => [
+                'create data kategori',
+                'view data kategori',
+                'edit data kategori',
+                'delete data kategori',
+            ],
+        ]);
 
         $permissions->map(function ($permission, $group) {
             collect($permission)->map(function ($name) use ($group) {

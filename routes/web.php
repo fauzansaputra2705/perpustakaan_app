@@ -7,6 +7,7 @@ use App\Http\Controllers\{
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\{
     ExampleController,
+    KategoriController,
 };
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -44,9 +45,15 @@ Route::group([
     'as' => 'master.',
     'midleware' => 'auth'
 ], function () {
+    //example
     Route::get('example/data', [ExampleController::class, 'data'])
         ->name('example.data');
     Route::resource('example', ExampleController::class);
+
+    //kategori
+    Route::get('kategori/data', [KategoriController::class, 'data'])
+        ->name('kategori.data');
+    Route::resource('kategori', KategoriController::class);
 });
 
 

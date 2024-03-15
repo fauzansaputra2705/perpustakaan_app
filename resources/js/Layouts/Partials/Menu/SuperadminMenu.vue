@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3'
 import { ref } from 'vue'
+import PermissionMenu from './PermissionMenu.vue'
 
 const linkActiveMaster = ref(false)
 const linkActiveManajemenAkun = ref(false)
@@ -55,6 +56,7 @@ linkActiveManajemenAkun.value =
                         </div>
                         <span class="hide-menu">Data Example</span>
                     </Link>
+                    <PermissionMenu name-menu="kategori" :is-sub-menu="true" />
                 </li>
             </ul>
         </li>

@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Buku\BukuRepository;
+use App\Repositories\Buku\BukuRepositoryInterface;
 use App\Repositories\Crud\{CrudRepository, CrudRepositoryInterface};
 use App\Repositories\User\{UserRepository, UserRepositoryInterface};
 use App\Repositories\Role\{RoleRepository, RoleRepositoryInterface};
@@ -30,6 +32,10 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             RoleRepositoryInterface::class,
             RoleRepository::class
+        ],
+        [
+            BukuRepositoryInterface::class,
+            BukuRepository::class
         ],
     ];
 

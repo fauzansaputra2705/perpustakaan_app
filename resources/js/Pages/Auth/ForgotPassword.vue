@@ -22,7 +22,7 @@ const submit = () => {
     <GuestLayout head-title="Forgot Password">
         <h2 class="mb-3 fs-7 fw-bolder">Lupa Kata Sandi</h2>
         <p class="mb-9">
-            Lupa kata sandi? Harap masukan alamat email Anda yang terdaftar di SIAAPP. Anda akan menerima tautan melalui
+            Lupa kata sandi? Harap masukan alamat email Anda yang terdaftar di Perpus. Anda akan menerima tautan melalui
             email untuk membuat kata sandi baru.
         </p>
 

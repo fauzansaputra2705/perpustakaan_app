@@ -199,18 +199,6 @@ class UserController extends Controller
             /** @var User $user */
             $user = $this->user->update($attributes, $id);
 
-            if ($request->jenis_akun == 'kabupaten' || $request->jenis_akun == 'provinsi') {
-                $this->verifikator->update([
-                    'user_id' => $user->id,
-                    // 'nik' => $request->nik,
-                    'nama_lengkap' => $request->name,
-                    // 'no_hp' => $request->telepon,
-                    'email' => $request->email,
-                    'provinsi_instansi_id' => $request->provinsi_id,
-                    'kabupaten_instansi_id' => $request->kabupaten_id,
-                ], $user->id, 'user_id');
-            }
-
             $user->syncRoles($role);
 
             DB::commit();
@@ -236,7 +224,6 @@ class UserController extends Controller
     {
         DB::beginTransaction();
         try {
-            $this->verifikator->findWhere('user_id', '=', $id)->delete();
             $this->user->delete($id);
 
             DB::commit();
