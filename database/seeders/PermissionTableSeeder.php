@@ -51,6 +51,20 @@ class PermissionTableSeeder extends Seeder
                 'edit data buku',
                 'delete data buku',
             ],
+
+            'data petugas' => [
+                'create data petugas',
+                'view data petugas',
+                'edit data petugas',
+                'delete data petugas',
+            ],
+
+            'data anggota' => [
+                'create data anggota',
+                'view data anggota',
+                'edit data anggota',
+                'delete data anggota',
+            ],
         ]);
 
         $permissions->map(function ($permission, $group) {

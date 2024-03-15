@@ -103,4 +103,21 @@ const permission = computed(() => page.props.user.permissions)
             <span class="hide-menu">Buku</span>
         </Link>
     </div>
+    <div v-if="props.nameMenu == 'petugas'">
+        <Link
+            v-show="permission.includes('view data petugas')"
+            :href="route('master.petugas.index')"
+            class="sidebar-link"
+            :class="{ active: route().current('master.petugas.index') }"
+            aria-expanded="false"
+        >
+            <div v-if="props.isSubMenu" class="round-16 d-flex align-items-center justify-content-center">
+                <i class="ti ti-circle"></i>
+            </div>
+            <span v-else>
+                <i class="ti ti-database"></i>
+            </span>
+            <span class="hide-menu">Petugas</span>
+        </Link>
+    </div>
 </template>

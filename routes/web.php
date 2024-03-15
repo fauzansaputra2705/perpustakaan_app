@@ -10,6 +10,7 @@ use App\Http\Controllers\Master\{
     ExampleController,
     KategoriController,
     KelasController,
+    PetugasController,
     RakBukuController,
     TarifDendaController,
 };
@@ -84,6 +85,11 @@ Route::group([
     Route::get('buku/data', [BukuController::class, 'data'])
         ->name('buku.data');
     Route::resource('buku', BukuController::class);
+
+    //petugas
+    Route::get('petugas/data', [PetugasController::class, 'data'])
+        ->name('petugas.data');
+    Route::resource('petugas', PetugasController::class);
 });
 
 
