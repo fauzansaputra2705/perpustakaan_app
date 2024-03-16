@@ -37,4 +37,18 @@ class Petugas extends Model
     use HasFactory;
 
     protected $table = 'petugas';
+
+    /**
+     * @var array<string>
+     */
+    protected $appends = ['full_url_foto'];
+
+    /**
+     * Mengambil full url path image
+     * @return string
+     */
+    public function getFullUrlFotoAttribute(): string
+    {
+        return loadFile($this->foto);
+    }
 }

@@ -29,9 +29,7 @@ const props = defineProps({
                         >
                             <div class="col-sm-8 col-md-6 col-xl-9">
                                 <div class="mb-4">
-                                    <img src="/image/logo-kemenag.png" alt="" width="75" class="inline-block" />
-                                    <img src="/image/logo-gtk-madrasah.jpeg" alt="" width="90" class="inline-block" />
-                                    <img src="/image/logo.svg" alt="" width="200" class="inline-block" />
+                                    <div style="font-weight: bold; font-size: 50px">ScholaLibris</div>
                                 </div>
                                 <slot />
                             </div>

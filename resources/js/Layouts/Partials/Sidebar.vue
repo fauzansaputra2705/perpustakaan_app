@@ -3,6 +3,7 @@ import { Link, usePage } from '@inertiajs/vue3'
 import SuperadminMenu from '@/Layouts/Partials/Menu/SuperadminMenu.vue'
 
 import { onMounted, computed } from 'vue'
+import PetugasMenu from './Menu/PetugasMenu.vue'
 
 onMounted(() => {
     $('.light-logo').css('display', 'none')
@@ -30,6 +31,9 @@ const user = computed(() => page.props.auth.user)
             <nav class="sidebar-nav scroll-sidebar" data-simplebar>
                 <span v-show="user.role == 'superadmin'">
                     <SuperadminMenu />
+                </span>
+                <span v-show="user.role == 'petugas'">
+                    <PetugasMenu />
                 </span>
             </nav>
 

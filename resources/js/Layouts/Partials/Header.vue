@@ -7,9 +7,9 @@ const user = computed(() => page.props.auth.user)
 
 const urlProfile = ref('')
 if (user.value.role == 'siswa') {
-    urlProfile.value = 'siswa.profile.index'
+    urlProfile.value = 'siswa.profile.edit'
 } else if (user.value.role == 'petugas') {
-    urlProfile.value = 'petugas.profile.index'
+    urlProfile.value = 'petugas.profile.edit'
 }
 </script>
 
@@ -41,8 +41,9 @@ if (user.value.role == 'siswa') {
                 </ul>
 
                 <div class="d-block d-lg-none">
-                    <img src="/image/logo.svg" class="dark-logo" width="180" alt="" />
-                    <img src="/image/logo.svg" class="light-logo" width="180" alt="" />
+                    <div style="font-weight: bold; font-size: 50px">ScholaLibris</div>
+                    <!-- <img src="/image/logo.svg" class="dark-logo" width="180" alt="" />
+                    <img src="/image/logo.svg" class="light-logo" width="180" alt="" /> -->
                 </div>
                 <button
                     class="navbar-toggler p-0 border-0"

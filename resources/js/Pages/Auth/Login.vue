@@ -51,7 +51,10 @@ const toggleShowPassword = () => {
 <template>
     <GuestLayout head-title="Log in">
         <h2 class="mb-3 fs-7 fw-bolder">MASUK</h2>
-        <p class="mb-9">Aplikasi Perpus</p>
+        <p class="mb-9">
+            Menjadikan perpustakaan sekolah lebih mudah diakses dan digunakan. Dapatkan akses ke buku dan sumber belajar
+            yang Anda butuhkan untuk sukses di sekolah.
+        </p>
 
         <div v-if="props.status" class="alert alert-warning" role="alert">
             {{ props.status }}

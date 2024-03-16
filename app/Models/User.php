@@ -105,7 +105,7 @@ class User extends Authenticatable
     public function getFullUrlPathImageAttribute(): string
     {
         return $this->path_image ?
-            loadFile($this->path_image) :
+            '/' . $this->path_image :
             asset('modernize/package/dist/images/profile/user-1.jpg');
     }
 
@@ -150,7 +150,7 @@ class User extends Authenticatable
     public function canBeImpersonated()
     {
         return $this->hasRole([
-            'siswa',
+            'anggota',
             'petugas',
         ]);
     }

@@ -42,43 +42,53 @@ const updatePassword = () => {
         </header>
 
         <form class="mt-6 space-y-6" @submit.prevent="updatePassword">
-            <div>
-                <TextInput
+            <div class="mb-3">
+                <label for="">Current Password</label>
+                <input
                     id="current_password"
                     ref="currentPasswordInput"
                     v-model="form.current_password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="current-password"
                 />
 
                 <InputError :message="form.errors.current_password" class="mt-2" />
             </div>
 
-            <div>
-                <TextInput
+            <div class="mb-3">
+                <label for="">Password</label>
+                <input
                     id="password"
                     ref="passwordInput"
                     v-model="form.password"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="new-password"
                 />
 
                 <InputError :message="form.errors.password" class="mt-2" />
             </div>
 
-            <div>
-                <TextInput
+            <div class="mb-3">
+                <label for="">Password Confirmation</label>
+                <input
                     id="password_confirmation"
                     v-model="form.password_confirmation"
                     type="password"
-                    class="mt-1 block w-full"
+                    class="form-control"
                     autocomplete="new-password"
                 />
 
                 <InputError :message="form.errors.password_confirmation" class="mt-2" />
             </div>
+
+            <button type="submit" class="btn btn-primary px-4" :disabled="form.processing">
+                <span v-if="form.processing">
+                    <div class="spinner-border"></div>
+                </span>
+                <span v-else>Simpan Data</span>
+            </button>
 
             <div class="flex items-center gap-4">
                 <Transition
