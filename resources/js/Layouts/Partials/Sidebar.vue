@@ -20,8 +20,9 @@ const user = computed(() => page.props.auth.user)
         <div>
             <div class="brand-logo d-flex align-items-center justify-content-between">
                 <Link :href="route('dashboard')" class="text-nowrap logo-img">
-                    <img src="/image/logo.svg" class="dark-logo" width="180" alt="" />
-                    <img src="/image/logo.svg" class="light-logo" width="180" alt="" />
+                    <!-- <img src="/image/logo.svg" class="dark-logo" width="180" alt="" />
+                    <img src="/image/logo.svg" class="light-logo" width="180" alt="" /> -->
+                    <div style="font-weight: bold; font-size: 30px">ScholaLibris</div>
                 </Link>
                 <div id="sidebarCollapse" class="close-btn d-lg-none d-block sidebartoggler cursor-pointer">
                     <i class="ti ti-x fs-8 text-muted"></i>

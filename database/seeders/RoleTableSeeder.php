@@ -17,7 +17,7 @@ class RoleTableSeeder extends Seeder
         $roles = collect([
             'superadmin',
             'petugas',
-            'siswa',
+            'anggota',
         ]);
 
         $roles->map(function ($role) {

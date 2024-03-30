@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PetugasRequest extends FormRequest
+class AnggotaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,15 @@ class PetugasRequest extends FormRequest
     {
         $rules = [
             // 'user_id' => 'required|exists:users,id',
-            'kode_petugas' => 'required|unique:petugas,id,' . $this->id,
-            'email' => 'required|unique:petugas,email,' . $this->id,
+            'kelas_id' => 'required|exists:kelas,id',
+            'kode_anggota' => 'required|unique:anggotas,id,' . $this->id,
             'nama' => 'required',
+            'email' => 'required|unique:anggotas,email,' . $this->id,
             'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+            'tempat_lahir' => 'required',
+            'tanggal_lahir' => 'required',
             'telpon' => 'required',
             'alamat' => 'required',
-
         ];
 
         if ($this->foto) {

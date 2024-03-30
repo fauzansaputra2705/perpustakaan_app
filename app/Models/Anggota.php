@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $foto
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property-read string|null $full_url_foto
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Anggota query()
@@ -45,4 +46,18 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggotas';
+
+    /**
+     * @var array<string>
+     */
+    protected $appends = ['full_url_foto'];
+
+    /**
+     * Mengambil full url path image
+     * @return string|null
+     */
+    public function getFullUrlFotoAttribute(): string|null
+    {
+        return loadFile($this->foto);
+    }
 }

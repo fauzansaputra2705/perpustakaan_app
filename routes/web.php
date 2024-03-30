@@ -6,6 +6,7 @@ use App\Http\Controllers\{
 };
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Master\{
+    AnggotaController,
     BukuController,
     ExampleController,
     KategoriController,
@@ -48,6 +49,15 @@ Route::group(['as' => 'select_list.', 'prefix' => 'select_list', 'midleware' => 
 
     Route::get('/rak_buku', [SelectListController::class, 'getListRakBuku'])
         ->name('rak_buku');
+
+    Route::get('/kelas', [SelectListController::class, 'getListKelas'])
+        ->name('kelas');
+
+    Route::get('/anggota', [SelectListController::class, 'getListAnggota'])
+        ->name('anggota');
+
+    Route::get('/buku', [SelectListController::class, 'getListBuku'])
+        ->name('buku');
 });
 
 //Data Master
@@ -90,6 +100,11 @@ Route::group([
     Route::get('petugas/data', [PetugasController::class, 'data'])
         ->name('petugas.data');
     Route::resource('petugas', PetugasController::class);
+
+    //anggota
+    Route::get('anggota/data', [AnggotaController::class, 'data'])
+        ->name('anggota.data');
+    Route::resource('anggota', AnggotaController::class);
 });
 
 

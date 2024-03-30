@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Repositories\Anggota\AnggotaRepository;
+use App\Repositories\Anggota\AnggotaRepositoryInterface;
 use App\Repositories\Buku\BukuRepository;
 use App\Repositories\Buku\BukuRepositoryInterface;
 use App\Repositories\Crud\{CrudRepository, CrudRepositoryInterface};
+use App\Repositories\Peminjam\PeminjamRepository;
+use App\Repositories\Peminjam\PeminjamRepositoryInterface;
 use App\Repositories\Petugas\PetugasRepository;
 use App\Repositories\Petugas\PetugasRepositoryInterface;
 use App\Repositories\User\{UserRepository, UserRepositoryInterface};
@@ -42,6 +46,14 @@ class RepositoryServiceProvider extends ServiceProvider
         [
             PetugasRepositoryInterface::class,
             PetugasRepository::class
+        ],
+        [
+            AnggotaRepositoryInterface::class,
+            AnggotaRepository::class
+        ],
+        [
+            PeminjamRepositoryInterface::class,
+            PeminjamRepository::class
         ],
     ];
 

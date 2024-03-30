@@ -74,6 +74,9 @@ linkActiveManajemenAkun.value =
                 <li class="sidebar-item" :class="{ active: route().current('master.petugas.index') }">
                     <PermissionMenu name-menu="petugas" :is-sub-menu="true" />
                 </li>
+                <li class="sidebar-item" :class="{ active: route().current('master.anggota.index') }">
+                    <PermissionMenu name-menu="anggota" :is-sub-menu="true" />
+                </li>
             </ul>
         </li>
 

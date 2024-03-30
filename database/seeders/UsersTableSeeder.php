@@ -19,16 +19,16 @@ class UsersTableSeeder extends Seeder
                 'email' => 'superadmin@example.com',
                 'role' => 'superadmin'
             ],
-            [
-                'name' => "Petugas",
-                'email' => 'petugas@example.com',
-                'role' => 'petugas'
-            ],
-            [
-                'name' => "Siswa",
-                'email' => 'siswa@example.com',
-                'role' => 'siswa'
-            ],
+            // [
+            //     'name' => "Petugas",
+            //     'email' => 'petugas@example.com',
+            //     'role' => 'petugas'
+            // ],
+            // [
+            //     'name' => "Siswa",
+            //     'email' => 'siswa@example.com',
+            //     'role' => 'anggota'
+            // ],
         ]);
 
         $data->map(function ($data) {

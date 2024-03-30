@@ -9,15 +9,19 @@ import DataTablesCore from 'datatables.net-bs5'
 import { useForm, usePage } from '@inertiajs/vue3'
 import FormInput from '@/Components/FormInput.vue'
 import { Alert } from '@/constant/Alert.vue'
+import Select2 from '@/Components/Select2.vue'
 
 DataTable.use(DataTablesCore)
 
 let columnsDatatables = [
     { data: 'DT_RowIndex', name: 'DT_RowIndex', title: 'No', searchable: false, orderable: false },
-    { data: 'kode_petugas', name: 'kode_petugas', title: 'Kode Petugas' },
+    { data: 'nama_kelas', name: 'kelas.nama', title: 'Kode Anggota' },
+    { data: 'kode_anggota', name: 'kode_anggota', title: 'Kode Anggota' },
     { data: 'email', name: 'email', title: 'Email' },
     { data: 'nama', name: 'nama', title: 'Nama' },
     { data: 'jenis_kelamin', name: 'jenis_kelamin', title: 'Jenis Kelamin' },
+    { data: 'tempat_lahir', name: 'tempat_lahir', title: 'Tempat Lahir' },
+    { data: 'tanggal_lahir', name: 'tanggal_lahir', title: 'Tempat Lahir' },
     { data: 'telpon', name: 'telpon', title: 'Telepon' },
     { data: 'alamat', name: 'alamat', title: 'Telepon' },
     { data: 'foto', title: 'Foto', searchable: false, orderable: false },
@@ -41,7 +45,7 @@ const optionsDatatables = {
         {
             orderable: false,
             searchable: false,
-            targets: 7,
+            targets: 10,
             render: function (data, type, row, meta) {
                 return `<img src="/${data}" style="max-width: 50px" />`
             },
@@ -50,7 +54,7 @@ const optionsDatatables = {
 }
 
 let dt
-const tablePetugas = ref()
+const tableAnggota = ref()
 
 const page = usePage()
 const user = computed(() => page.props.auth.user)
@@ -58,7 +62,7 @@ const permission = computed(() => page.props.user.permissions)
 
 const ajaxDatatables = () => {
     const url = {
-        url: route('master.petugas.data'),
+        url: route('master.anggota.data'),
         dataType: 'JSON',
         data: function (d) {},
     }
@@ -67,17 +71,20 @@ const ajaxDatatables = () => {
 
 const form = useForm({
     id: '',
-    kode_petugas: '',
+    kelas_id: '',
+    kode_anggota: '',
     email: '',
     nama: '',
     jenis_kelamin: '',
+    tempat_lahir: '',
+    tanggal_lahir: '',
     telpon: '',
     alamat: '',
     foto: '',
 })
 
 onMounted(() => {
-    dt = tablePetugas.value.dt
+    dt = tableAnggota.value.dt
 
     $(dt.table().body()).on('click', 'a.edit', function () {
         let id = $(this).data('id')
@@ -98,7 +105,7 @@ const isEdit = ref(false)
 
 const create = () => {
     showModal.value = true
-    titleModal.value = 'Tambah Data Petugas'
+    titleModal.value = 'Tambah Data Anggota'
     isEdit.value = false
     form.reset()
 }
@@ -107,18 +114,21 @@ const edit = (id) => {
     form.reset()
     form.clearErrors()
     isEdit.value = true
-    $.get(route('master.petugas.edit', { id: id }))
+    $.get(route('master.anggota.edit', { id: id }))
         .done((response) => {
             showModal.value = true
-            titleModal.value = 'Edit Data Petugas'
+            titleModal.value = 'Edit Data Anggota'
 
             let data = response.data
 
             form.id = data.id
-            form.kode_petugas = data.kode_petugas
+            form.kelas_id = data.kelas_id
+            form.kode_anggota = data.kode_anggota
             form.email = data.email
             form.nama = data.nama
             form.jenis_kelamin = data.jenis_kelamin
+            form.tempat_lahir = data.tempat_lahir
+            form.tanggal_lahir = data.tanggal_lahir
             form.telpon = data.telpon
             form.alamat = data.alamat
             // form.foto = data.foto
@@ -130,7 +140,7 @@ const edit = (id) => {
 
 const hapus = (id) => {
     showModalDelete.value = true
-    urlDelete.value = route('master.petugas.destroy', { id: id })
+    urlDelete.value = route('master.anggota.destroy', { id: id })
 }
 const closeModalDelete = () => {
     showModalDelete.value = false
@@ -148,7 +158,7 @@ const closeModalForm = () => {
 const submitStore = () => {
     form.transform((data) => ({
         ...data,
-    })).post(route('master.petugas.store'), {
+    })).post(route('master.anggota.store'), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil ditambahkan')
@@ -165,7 +175,7 @@ const submitStore = () => {
 const submitUpdate = (id) => {
     form.transform((data) => ({
         ...data,
-    })).put(route('master.petugas.update', { id: id }), {
+    })).put(route('master.anggota.update', { id: id }), {
         onSuccess: () => {
             closeModalForm()
             Alert('success', 'Berhasil diupdate')
@@ -181,12 +191,12 @@ const submitUpdate = (id) => {
 </script>
 
 <template>
-    <AuthenticatedLayout head-title="Data Petugas">
+    <AuthenticatedLayout head-title="Data Anggota">
         <CardHeaderBreadcrumb
-            title="Data Petugas"
+            title="Data Anggota"
             :breadcrumb="[
                 { nameMenu: 'Dashboard', urlMenu: user.role + '.dashboard' },
-                { nameMenu: 'Data Petugas', urlMenu: 'master.petugas.index' },
+                { nameMenu: 'Data Anggota', urlMenu: 'master.anggota.index' },
             ]"
         />
 
@@ -194,13 +204,13 @@ const submitUpdate = (id) => {
             <div class="col-12">
                 <div class="card">
                     <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">List Data Petugas</h4>
-                        <p>Berisikan semua data petugas yang ada.</p>
+                        <h4 class="card-title mb-0">List Data Anggota</h4>
+                        <p>Berisikan semua data anggota yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="d-flex justify-content-end">
                             <button
-                                v-show="permission.includes('create data petugas')"
+                                v-show="permission.includes('create data anggota')"
                                 type="button"
                                 class="btn btn-primary btn-rounded m-t-10 mb-2"
                                 @click="create"
@@ -210,7 +220,7 @@ const submitUpdate = (id) => {
                         </div>
 
                         <DataTable
-                            ref="tablePetugas"
+                            ref="tableAnggota"
                             :columns="columnsDatatables"
                             :options="optionsDatatables"
                             :ajax="ajaxDatatables()"
@@ -224,25 +234,35 @@ const submitUpdate = (id) => {
     </AuthenticatedLayout>
 
     <Modal
-        id-modal="modalFormPetugas"
+        id-modal="modalFormAnggota"
         :title-modal="titleModal"
         :show-modal="showModal"
         max-width="md"
         @close-modal="closeModalForm"
     >
         <div class="container-fluid">
-            <FormInput
-                v-model="form.kode_petugas"
-                type="text"
-                label="Kode Petugas"
+            <Select2
+                id="kelas_id"
+                v-model="form.kelas_id"
+                label="Kelas"
                 required
-                :error-message="form.errors.kode_petugas"
+                :option="[]"
+                :url="route('select_list.kelas')"
+                :error-message="form.errors.kelas_id"
+            />
+
+            <FormInput
+                v-model="form.kode_anggota"
+                type="text"
+                label="Kode Anggota"
+                required
+                :error-message="form.errors.kode_anggota"
             />
 
             <FormInput
                 v-model="form.email"
                 type="text"
-                label="Email Petugas"
+                label="Email Anggota"
                 required
                 :error-message="form.errors.email"
                 :disabled="form.id != ''"
@@ -251,7 +271,7 @@ const submitUpdate = (id) => {
             <FormInput
                 v-model="form.nama"
                 type="text"
-                label="Nama Petugas"
+                label="Nama Anggota"
                 required
                 :error-message="form.errors.nama"
                 :disabled="form.id != ''"
@@ -273,6 +293,22 @@ const submitUpdate = (id) => {
                 ]"
                 required
                 :error-message="form.errors.jenis_kelamin"
+            />
+
+            <FormInput
+                v-model="form.tempat_lahir"
+                type="text"
+                label="Tempat Lahir"
+                required
+                :error-message="form.errors.tempat_lahir"
+            />
+
+            <FormInput
+                v-model="form.tanggal_lahir"
+                type="date"
+                label="Tanggal Lahir"
+                required
+                :error-message="form.errors.tanggal_lahir"
             />
 
             <FormInput
@@ -318,7 +354,7 @@ const submitUpdate = (id) => {
         </template>
     </Modal>
     <ModalDelete
-        id-modal="modalDeletePetugas"
+        id-modal="modalDeleteAnggota"
         :show-modal="showModalDelete"
         :url="urlDelete"
         @is-close-modal="closeModalDelete"

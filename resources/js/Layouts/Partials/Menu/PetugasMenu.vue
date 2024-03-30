@@ -21,14 +21,37 @@ linkActiveMaster.value = route().current('master.')
         <li class="sidebar-item">
             <Link
                 class="sidebar-link"
-                :class="{ active: route().current('superadmin.dashboard') }"
-                :href="route('superadmin.dashboard')"
+                :class="{ active: route().current('petugas.dashboard') }"
+                :href="route('petugas.dashboard')"
                 aria-expanded="false"
             >
                 <span>
                     <i class="ti ti-layout-dashboard"></i>
                 </span>
                 <span class="hide-menu">Dashboard</span>
+            </Link>
+        </li>
+
+        <li class="sidebar-item">
+            <Link
+                class="sidebar-link"
+                :class="{ active: route().current('petugas.peminjam.index') }"
+                :href="route('petugas.peminjam.index')"
+                aria-expanded="false"
+            >
+                <span>
+                    <i class="ti ti-database"></i>
+                </span>
+                <span class="hide-menu">Peminjam</span>
+            </Link>
+        </li>
+
+        <li class="sidebar-item">
+            <Link class="sidebar-link" href="" aria-expanded="false">
+                <span>
+                    <i class="ti ti-database"></i>
+                </span>
+                <span class="hide-menu">Pengembalian</span>
             </Link>
         </li>
 

@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $id
  * @property int $user_id
  * @property string $kode_petugas
+ * @property string $email
  * @property string $nama
  * @property string $jenis_kelamin
  * @property string $telpon
@@ -17,11 +18,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property string|null $foto
  * @property string|null $created_at
  * @property string|null $updated_at
+ * @property-read string|null $full_url_foto
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas query()
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereAlamat($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereFoto($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Petugas whereJenisKelamin($value)
@@ -45,9 +48,9 @@ class Petugas extends Model
 
     /**
      * Mengambil full url path image
-     * @return string
+     * @return string|null
      */
-    public function getFullUrlFotoAttribute(): string
+    public function getFullUrlFotoAttribute(): string|null
     {
         return loadFile($this->foto);
     }

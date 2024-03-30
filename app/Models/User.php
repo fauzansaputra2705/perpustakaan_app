@@ -125,7 +125,7 @@ class User extends Authenticatable
             case 'petugas':
                 $color = 'primary';
                 break;
-            case 'siswa':
+            case 'anggota':
                 $color = 'secondary';
                 break;
             default:
@@ -165,5 +165,25 @@ class User extends Authenticatable
         $url = url('/') . '/reset-password/' . $token . '?email=' . $this->email;
 
         $this->notify(new CustomResetPasswordNotification($url, $this));
+    }
+
+    /**
+     * Get the petugas associated with the User
+     *
+     * @return HasOne<Petugas>
+     */
+    public function petugas()
+    {
+        return $this->hasOne(Petugas::class, 'user_id', 'id');
+    }
+
+    /**
+     * Get the anggota associated with the User
+     *
+     * @return HasOne<Anggota>
+     */
+    public function anggota()
+    {
+        return $this->hasOne(Anggota::class, 'user_id', 'id');
     }
 }
