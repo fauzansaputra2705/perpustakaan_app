@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('lama_pinjam');
             $table->text('keterangan');
             $table->enum('kondisi_buku_minjam', ['baik', 'rusak', 'hilang']);
-            $table->enum('kondisi_buku_kembali', ['baik', 'rusak', 'hilang']);
+            $table->enum('kondisi_buku_kembali', ['baik', 'rusak', 'hilang'])->nullable();
             $table->enum('status', ['dipinjam', 'dikembalikan']);
             $table->timestamps();
 

@@ -47,7 +47,12 @@ linkActiveMaster.value = route().current('master.')
         </li>
 
         <li class="sidebar-item">
-            <Link class="sidebar-link" href="" aria-expanded="false">
+            <Link
+                class="sidebar-link"
+                :class="{ active: route().current('petugas.pengembalian.index') }"
+                :href="route('petugas.pengembalian.index')"
+                aria-expanded="false"
+            >
                 <span>
                     <i class="ti ti-database"></i>
                 </span>

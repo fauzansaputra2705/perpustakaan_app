@@ -51,7 +51,9 @@ class PeminjamanController extends Controller
      */
     public function data()
     {
-        $data = $this->peminjam->queryWhere([], [
+        $data = $this->peminjam->queryWhere([
+            ['peminjams.status', '=', '"dipinjam"']
+        ], [
             'peminjams.*',
             'anggotas.kode_anggota',
             'anggotas.nama as nama_anggota',
@@ -66,7 +68,7 @@ class PeminjamanController extends Controller
             ->addIndexColumn()
             ->editColumn('lama_pinjam', function ($data) {
                 return $data->lama_pinjam . ' Hari <br>' .
-                    'tanggal kembali : ' . Carbon::parse($data->tanggal_pinjam)->addDays($data->lama_pinjam);
+                    'tanggal kembali : ' . Carbon::parse($data->tanggal_pinjam)->addDay($data->lama_pinjam);
             })
             ->addColumn('action', function ($data) {
                 $btn = '<div class="action-btn">';
@@ -105,7 +107,7 @@ class PeminjamanController extends Controller
             /** @var ?Buku $buku */
             $buku = $this->buku->find($peminjam->buku_id);
 
-            if ($peminjam->anggota_id == $request->anggota_id && $peminjam->buku_id == $request->buku_id) {
+            if ($peminjam->anggota_id != $request->anggota_id && $peminjam->buku_id != $request->buku_id) {
                 if (isset($buku)) {
                     $buku->update([
                         'jumlah_stok' => $buku->jumlah_stok - 1
@@ -116,11 +118,10 @@ class PeminjamanController extends Controller
             $logPeminjam = LogPeminjam::create([
                 'peminjam_id' => $peminjam->id,
                 'petugas_id' => Auth::user()->petugas->id,
-                'status_peminjam' => 'meminjam',
+                'status_peminjam' => $peminjam->status,
                 'keterangan_peminjam' => $peminjam->keterangan,
                 'kondisi_buku' => $peminjam->kondisi_buku_minjam,
             ]);
-
 
             DB::commit();
             return to_route('petugas.peminjam.index');

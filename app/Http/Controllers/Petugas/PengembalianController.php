@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Petugas;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PeminjamRequest;
+use App\Http\Requests\PengembalianRequest;
 use App\Models\Buku;
+use App\Models\LogPeminjam;
 use App\Models\Peminjam;
 use App\Repositories\Buku\BukuRepositoryInterface;
 use App\Repositories\Peminjam\PeminjamRepositoryInterface;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
@@ -41,7 +44,7 @@ class PengembalianController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Peminjaman/Index');
+        return Inertia::render('Pengembalian/Index');
     }
 
     /**
@@ -49,7 +52,9 @@ class PengembalianController extends Controller
      */
     public function data()
     {
-        $data = $this->peminjam->queryWhere([], [
+        $data = $this->peminjam->queryWhere([
+            ['status', '=', '"dikembalikan"']
+        ], [
             'peminjams.*',
             'anggotas.kode_anggota',
             'anggotas.nama as nama_anggota',
@@ -62,7 +67,7 @@ class PengembalianController extends Controller
         // @phpstan-ignore-next-line
         return datatables()->eloquent($data)
             ->addIndexColumn()
-            ->editColumn('lama_pinjam', function ($data) {
+            ->editColumn('lama_telat', function ($data) {
                 return $data->lama_pinjam . ' Hari <br>' .
                     'tanggal kembali : ' . Carbon::parse($data->tanggal_pinjam)->addDays($data->lama_pinjam);
             })
@@ -87,10 +92,10 @@ class PengembalianController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param  PeminjamRequest  $request
+     * @param  PengembalianRequest  $request
      * @return mixed
      */
-    public function store(PeminjamRequest $request)
+    public function store(PengembalianRequest $request)
     {
         DB::beginTransaction();
         try {
@@ -103,19 +108,29 @@ class PengembalianController extends Controller
             /** @var ?Buku $buku */
             $buku = $this->buku->find($peminjam->buku_id);
 
-            if (isset($buku)) {
-                $buku->update([
-                    'jumlah_stok' => $buku->jumlah_stok - 1
-                ]);
+            if ($peminjam->anggota_id != $request->anggota_id && $peminjam->buku_id != $request->buku_id) {
+                if (isset($buku)) {
+                    $buku->update([
+                        'jumlah_stok' => $buku->jumlah_stok + 1
+                    ]);
+                }
             }
+
+            $logPeminjam = LogPeminjam::create([
+                'peminjam_id' => $peminjam->id,
+                'petugas_id' => Auth::user()->petugas->id,
+                'status_peminjam' => $peminjam->status,
+                'keterangan_peminjam' => $peminjam->keterangan,
+                'kondisi_buku' => $peminjam->kondisi_buku_kembali,
+            ]);
 
 
             DB::commit();
-            return to_route('petugas.peminjam.index');
+            return to_route('petugas.pengembalian.index');
         } catch (\Throwable $th) {
             DB::rollBack();
             Log::error($th->getMessage());
-            return to_route('petugas.peminjam.index')->withErrors([
+            return to_route('petugas.pengembalian.index')->withErrors([
                 'message' => $th->getMessage(),
                 'messageFlash' => true,
                 'type' => 'error'

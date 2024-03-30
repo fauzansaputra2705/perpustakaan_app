@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Petugas\{
     DashboardController,
     PeminjamanController,
+    PengembalianController,
 };
 use App\Http\Controllers\ProfileController;
 
@@ -25,4 +26,10 @@ Route::group([
     Route::get('/peminjam/data', [PeminjamanController::class, 'data'])
         ->name('peminjam.data');
     Route::post('/peminjam/store', [PeminjamanController::class, 'store'])->name('peminjam.store');
+
+    //pengembalian
+    Route::get('/pengembalian', [PengembalianController::class, 'index'])->name('pengembalian.index');
+    Route::get('/pengembalian/data', [PengembalianController::class, 'data'])
+        ->name('pengembalian.data');
+    Route::post('/pengembalian/store', [PengembalianController::class, 'store'])->name('pengembalian.store');
 });

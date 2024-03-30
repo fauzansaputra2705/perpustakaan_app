@@ -48,7 +48,7 @@ const optionsDatatables = {
 }
 
 let dt
-const tablePeminjam = ref()
+const tablePengembalian = ref()
 
 const page = usePage()
 const user = computed(() => page.props.auth.user)
@@ -56,7 +56,7 @@ const permission = computed(() => page.props.user.permissions)
 
 const ajaxDatatables = () => {
     const url = {
-        url: route('petugas.peminjam.data'),
+        url: route('petugas.pengembalian.data'),
         dataType: 'JSON',
         data: function (d) {},
     }
@@ -64,18 +64,15 @@ const ajaxDatatables = () => {
 }
 
 const form = useForm({
-    // id: '',
     anggota_id: '',
     buku_id: '',
-    tanggal_pinjam: '',
-    // tanggal_kembali: '',
-    lama_pinjam: '',
+    tanggal_kembali: '',
     keterangan: '',
-    kondisi_buku_minjam: '',
+    kondisi_buku_kembali: '',
 })
 
 onMounted(() => {
-    dt = tablePeminjam.value.dt
+    dt = tablePengembalian.value.dt
 
     $(dt.table().body()).on('click', 'a.delete', function () {
         let id = $(this).data('id')
@@ -86,19 +83,20 @@ onMounted(() => {
 const showModalDelete = ref(false)
 const urlDelete = ref('')
 
-// const hapus = (id) => {
-//     showModalDelete.value = true
-//     urlDelete.value = route('master.kategori.destroy', { id: id })
-// }
-// const closeModalDelete = () => {
-//     showModalDelete.value = false
-//     dt.ajax.reload()
-// }
+const hapus = (id) => {
+    showModalDelete.value = true
+    urlDelete.value = route('master.kategori.destroy', { id: id })
+}
+const closeModalDelete = () => {
+    showModalDelete.value = false
+    dt.ajax.reload()
+}
 
 const submitStore = () => {
     form.transform((data) => ({
         ...data,
-    })).post(route('petugas.peminjam.store'), {
+        status: 'dikembalikan',
+    })).post(route('petugas.pengembalian.store'), {
         onSuccess: () => {
             Alert('success', 'Berhasil ditambahkan')
             dt.ajax.reload()
@@ -114,12 +112,12 @@ const submitStore = () => {
 </script>
 
 <template>
-    <AuthenticatedLayout head-title="Data Peminjam">
+    <AuthenticatedLayout head-title="Data Pengembalian">
         <CardHeaderBreadcrumb
-            title="Data Peminjam"
+            title="Data Pengembalian"
             :breadcrumb="[
                 { nameMenu: 'Dashboard', urlMenu: user.role + '.dashboard' },
-                { nameMenu: 'Data Peminjam', urlMenu: 'petugas.peminjam.index' },
+                { nameMenu: 'Data Pengembalian', urlMenu: 'petugas.pengembalian.index' },
             ]"
         />
 
@@ -127,8 +125,8 @@ const submitStore = () => {
             <div class="col-12">
                 <div class="card">
                     <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">Create Data Peminjaman</h4>
-                        <p>Berisikan semua data peminjaman yang ada.</p>
+                        <h4 class="card-title mb-0">Create Data Pengembalian</h4>
+                        <p>Berisikan semua data pengembalian yang ada.</p>
                     </div>
                     <div class="card-body">
                         <div class="container-fluid">
@@ -148,34 +146,26 @@ const submitStore = () => {
                                 label="Buku"
                                 required
                                 :option="[]"
-                                :url="route('select_list.buku')"
+                                :url="route('select_list.buku_peminjam', { anggotaId: form.anggota_id ?? 0 })"
                                 :error-message="form.errors.buku_id"
                             />
 
                             <FormInput
-                                v-model="form.tanggal_pinjam"
+                                v-model="form.tanggal_kembali"
                                 type="date"
-                                label="Tanggal Pinjam"
+                                label="Tanggal Kembali"
                                 required
-                                :error-message="form.errors.tanggal_pinjam"
-                            />
-
-                            <FormInput
-                                v-model="form.lama_pinjam"
-                                type="number"
-                                label="Berapa Lama Pinjam (Hari)"
-                                required
-                                :error-message="form.errors.lama_pinjam"
+                                :error-message="form.errors.tanggal_kembali"
                             />
 
                             <Select2
-                                id="kondisi_buku_minjam"
-                                v-model="form.kondisi_buku_minjam"
+                                id="kondisi_buku_kembali"
+                                v-model="form.kondisi_buku_kembali"
                                 label="Kondisi Buku"
                                 required
                                 :option="ListKondisiBuku"
                                 url=""
-                                :error-message="form.errors.kondisi_buku_minjam"
+                                :error-message="form.errors.kondisi_buku_kembali"
                             />
 
                             <FormInput
@@ -207,7 +197,7 @@ const submitStore = () => {
             <div class="col-12">
                 <div class="card">
                     <div class="border-bottom title-part-padding">
-                        <h4 class="card-title mb-0">List Data Peminjam</h4>
+                        <h4 class="card-title mb-0">List Data Pengembalian</h4>
                         <p>Berisikan semua data pengembalian yang ada.</p>
                     </div>
                     <div class="card-body">
@@ -223,7 +213,7 @@ const submitStore = () => {
                         </div> -->
 
                         <DataTable
-                            ref="tablePeminjam"
+                            ref="tablePengembalian"
                             :columns="columnsDatatables"
                             :options="optionsDatatables"
                             :ajax="ajaxDatatables()"
@@ -237,7 +227,7 @@ const submitStore = () => {
     </AuthenticatedLayout>
 
     <ModalDelete
-        id-modal="modalDeletePeminjam"
+        id-modal="modalDeletePengembalian"
         :show-modal="showModalDelete"
         :url="urlDelete"
         @is-close-modal="closeModalDelete"

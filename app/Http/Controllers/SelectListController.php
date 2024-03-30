@@ -7,6 +7,7 @@ use App\Models\Buku;
 use App\Models\Example;
 use App\Models\Kategori;
 use App\Models\Kelas;
+use App\Models\Peminjam;
 use App\Models\RakBuku;
 use App\Repositories\Anggota\AnggotaRepositoryInterface;
 use App\Repositories\Buku\BukuRepositoryInterface;
@@ -195,6 +196,33 @@ class SelectListController extends Controller
         $result = [];
 
         /** @var Buku[] $p */
+        $p = $data->get();
+
+        foreach ($p as $value) {
+            $result[$value->id] = "$value->title ($value->isbn)";
+        }
+
+        if (!$result) {
+            return $this->oops(self::DATA_TIDAK_DITEMUKAN);
+        }
+        return $this->ok($result);
+    }
+
+    /**
+     * get list buku peminjam for select option
+     *
+     * @param int $anggotaId
+     * @return  \Illuminate\Http\JsonResponse
+     */
+    public function getListBukuPeminjam($anggotaId)
+    {
+        $data = Peminjam::join('bukus', 'bukus.id', '=', 'peminjams.buku_id')
+            ->where('peminjams.anggota_id', $anggotaId)
+            ->select('bukus.*');
+
+        $result = [];
+
+        /** @var Peminjam[] $p */
         $p = $data->get();
 
         foreach ($p as $value) {

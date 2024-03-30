@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PeminjamRequest extends FormRequest
+class PengembalianRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,11 @@ class PeminjamRequest extends FormRequest
         return [
             'anggota_id' => 'required|exists:anggotas,id',
             'buku_id' => 'required|exists:bukus,id',
-            'tanggal_pinjam' => 'required',
-            'tanggal_kembali' => 'nullable',
-            'lama_pinjam' => 'required',
+            // 'tanggal_pinjam' => 'required',
+            'tanggal_kembali' => 'required',
+            // 'lama_pinjam' => 'required',
             'keterangan' => 'required',
-            'kondisi_buku_minjam' => 'required|in:baik,hilang,rusak',
+            'kondisi_buku_kembali' => 'required|in:baik,hilang,rusak',
         ];
     }
 }
