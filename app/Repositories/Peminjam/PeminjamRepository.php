@@ -29,15 +29,15 @@ class PeminjamRepository extends BaseRepository implements PeminjamRepositoryInt
         $d = $this->getModel()
             ->query()
             ->select($selects)
-            ->join('anggotas', function ($q) {
-                $q->on('anggotas.id', '=', 'peminjams.id')
-                    ->join(
+            ->leftJoin('anggotas', function ($q) {
+                $q->on('anggotas.id', '=', 'peminjams.anggota_id')
+                    ->leftjoin(
                         'users',
                         'users.id',
                         '=',
                         'anggotas.user_id'
                     )
-                    ->join(
+                    ->leftjoin(
                         'kelas',
                         'kelas.id',
                         '=',
@@ -45,12 +45,12 @@ class PeminjamRepository extends BaseRepository implements PeminjamRepositoryInt
                     )
                     ->select(
                         'anggotas.*',
-                        'kelas.nama as nama_kelas',
-                        'kelas.tingkat as tingkat_kelas',
+                        'kelas.nama',
+                        'kelas.tingkat',
                         'users.username'
                     );
             })
-            ->join('bukus', 'bukus.id', '=', 'peminjams.buku_id');
+            ->leftJoin('bukus', 'bukus.id', '=', 'peminjams.buku_id');
 
         return $this->whenWhere($attr, $d);
     }

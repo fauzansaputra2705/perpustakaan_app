@@ -214,7 +214,7 @@ class SelectListController extends Controller
      * @param int $anggotaId
      * @return  \Illuminate\Http\JsonResponse
      */
-    public function getListBukuPeminjam($anggotaId)
+    public function getListBukuPeminjam($anggotaId = null)
     {
         $data = Peminjam::join('bukus', 'bukus.id', '=', 'peminjams.buku_id')
             ->where('peminjams.anggota_id', $anggotaId)
@@ -229,9 +229,9 @@ class SelectListController extends Controller
             $result[$value->id] = "$value->title ($value->isbn)";
         }
 
-        if (!$result) {
-            return $this->oops(self::DATA_TIDAK_DITEMUKAN);
-        }
+        // if (!$result) {
+        //     return $this->oops(self::DATA_TIDAK_DITEMUKAN);
+        // }
         return $this->ok($result);
     }
 }

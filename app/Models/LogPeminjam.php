@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property int $petugas_id
  * @property string $status_peminjam
  * @property string|null $keterangan_peminjam
+ * @property string|null $status_kembali
+ * @property string|null $keterangan_kembali
  * @property string $kondisi_buku
  * @property string|null $created_at
  * @property string|null $updated_at
@@ -20,10 +22,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam query()
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereKeteranganKembali($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereKeteranganPeminjam($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereKondisiBuku($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam wherePeminjamId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam wherePetugasId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereStatusKembali($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereStatusPeminjam($value)
  * @method static \Illuminate\Database\Eloquent\Builder|LogPeminjam whereUpdatedAt($value)
  * @mixin \Eloquent

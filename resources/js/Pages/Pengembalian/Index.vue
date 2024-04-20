@@ -21,7 +21,8 @@ let columnsDatatables = [
     { data: 'title', name: 'bukus.title', title: 'Nama Buku' },
     { data: 'isbn', name: 'bukus.isbn', title: 'ISBN' },
     { data: 'tanggal_pinjam', name: 'tanggal_pinjam', title: 'Tanggal Pinjam' },
-    { data: 'lama_pinjam', name: 'lama_pinjam', title: 'Lama Pinjam', searchable: false, orderable: false },
+    { data: 'tanggal_kembali', name: 'tanggal_kembali', title: 'Tanggal Kembali' },
+    { data: 'lama_telat', name: 'lama_telat', title: 'Lama Telat', searchable: false, orderable: false },
     // { data: 'action', name: 'action', title: 'Opsi', searchable: false, orderable: false },
 ]
 

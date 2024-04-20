@@ -68,7 +68,7 @@ class PeminjamanController extends Controller
             ->addIndexColumn()
             ->editColumn('lama_pinjam', function ($data) {
                 return $data->lama_pinjam . ' Hari <br>' .
-                    'tanggal kembali : ' . Carbon::parse($data->tanggal_pinjam)->addDay($data->lama_pinjam);
+                    'batas pengembalian buku : ' . Carbon::parse($data->tanggal_pinjam)->addDay($data->lama_pinjam);
             })
             ->addColumn('action', function ($data) {
                 $btn = '<div class="action-btn">';
@@ -98,11 +98,11 @@ class PeminjamanController extends Controller
     {
         DB::beginTransaction();
         try {
+            $request->merge([
+                'status' => 'dipinjam'
+            ]);
             /** @var Peminjam $peminjam */
-            $peminjam = $this->peminjam->updateOrCreate([
-                'anggota_id' => $request->anggota_id,
-                'buku_id' => $request->buku_id
-            ], $request->all());
+            $peminjam = $this->peminjam->create($request->all());
 
             /** @var ?Buku $buku */
             $buku = $this->buku->find($peminjam->buku_id);

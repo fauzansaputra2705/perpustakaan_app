@@ -9,19 +9,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  *
  * @property int $id
  * @property int $anggota_id
+ * @property int $buku_id
  * @property string $tanggal_pinjam
- * @property string $tanggal_kembali
+ * @property string|null $tanggal_kembali
  * @property int $lama_pinjam
  * @property string $keterangan
  * @property string $kondisi_buku_minjam
  * @property string $kondisi_buku_kembali
- * @property string $status
+ * @property string|null $status
  * @property string|null $created_at
  * @property string|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam query()
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam whereAnggotaId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Peminjam whereBukuId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Peminjam whereKeterangan($value)

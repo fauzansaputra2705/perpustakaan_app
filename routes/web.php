@@ -59,7 +59,7 @@ Route::group(['as' => 'select_list.', 'prefix' => 'select_list', 'midleware' => 
     Route::get('/buku', [SelectListController::class, 'getListBuku'])
         ->name('buku');
 
-    Route::get('/buku-peminjam/{anggotaId}', [SelectListController::class, 'getListBukuPeminjam'])
+    Route::get('/buku-peminjam/{anggotaId?}', [SelectListController::class, 'getListBukuPeminjam'])
         ->name('buku_peminjam');
 });
 

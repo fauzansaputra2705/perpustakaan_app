@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigInteger('petugas_id')->unsigned();
             $table->string('status_peminjam');
             $table->text('keterangan_peminjam')->nullable();
+            $table->text('keterangan_kembali')->nullable();
             $table->string('kondisi_buku');
             $table->timestamps();
 

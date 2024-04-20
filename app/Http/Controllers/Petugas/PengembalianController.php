@@ -68,8 +68,11 @@ class PengembalianController extends Controller
         return datatables()->eloquent($data)
             ->addIndexColumn()
             ->editColumn('lama_telat', function ($data) {
-                return $data->lama_pinjam . ' Hari <br>' .
-                    'tanggal kembali : ' . Carbon::parse($data->tanggal_pinjam)->addDays($data->lama_pinjam);
+                $tanggalPinjam = Carbon::parse($data->tanggal_pinjam);
+                $tanggalKembali = Carbon::parse($data->tanggal_kembali);
+
+                $diffInDays = $tanggalPinjam->diffInDays($tanggalKembali);
+                return $diffInDays . ' Hari';
             })
             ->addColumn('action', function ($data) {
                 $btn = '<div class="action-btn">';
@@ -86,7 +89,7 @@ class PengembalianController extends Controller
                 $btn .= '</div>';
                 return $btn;
             })
-            ->rawColumns(['lama_pinjam'])
+            ->rawColumns(['lama_telat'])
             ->toJson();
     }
 
@@ -120,7 +123,7 @@ class PengembalianController extends Controller
                 'peminjam_id' => $peminjam->id,
                 'petugas_id' => Auth::user()->petugas->id,
                 'status_peminjam' => $peminjam->status,
-                'keterangan_peminjam' => $peminjam->keterangan,
+                'keterangan_kembali' => $peminjam->keterangan,
                 'kondisi_buku' => $peminjam->kondisi_buku_kembali,
             ]);
 
