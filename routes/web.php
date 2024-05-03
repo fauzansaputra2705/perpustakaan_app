@@ -125,6 +125,10 @@ Route::middleware('auth')->group(function () {
         ->name('profile.update_foto');
     Route::put('profile/ubah_password', [ProfileController::class, 'ubahPassword'])
         ->name('profile.ubah_password');
+
+    //Generate kartu anggota
+    Route::get('download_kartu_anggota/{anggotaId?}', [AnggotaController::class, 'kartuAnggota'])
+        ->name('download_kartu_anggota');
 });
 
 require_once __DIR__ . '/auth.php';

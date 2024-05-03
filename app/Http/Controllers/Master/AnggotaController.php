@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AnggotaRequest;
+use App\Http\Traits\HelperTrait;
 use App\Models\Anggota;
 use App\Models\User;
 use App\Repositories\Anggota\AnggotaRepositoryInterface;
@@ -16,6 +17,9 @@ use Illuminate\Support\Facades\Log;
 
 class AnggotaController extends Controller
 {
+
+    use HelperTrait;
+
     /**
      * @var AnggotaRepositoryInterface
      */
@@ -67,6 +71,13 @@ class AnggotaController extends Controller
                             <i class="ti ti-trash fs-5"></i>
                             </a>';
                 }
+
+                $btn .= '<a href="' . route('download_kartu_anggota', ['anggotaId' => $this->stringToCrypt($data->id)]) . '"
+                class="text-dark ms-2"
+                target="_blank"
+                >
+                                <i class="ti ti-printer fs-5"></i>
+                                </a>';
 
                 $btn .= '</div>';
                 return $btn;
@@ -235,5 +246,31 @@ class AnggotaController extends Controller
                 'type' => 'error'
             ]);
         }
+    }
+
+
+    /**
+     * kartu Anggota
+     *
+     * @param   string  $anggotaId
+     *
+     * @return mixed
+     */
+    public function kartuAnggota($anggotaId = null)
+    {
+        $anggotaId = $this->cryptToString($anggotaId);
+
+        /** @var ?Anggota $anggota */
+        $anggota = $this->anggota->find($anggotaId);
+
+        if (!isset($anggota)) {
+            return back()->withErrors([
+                'message' => 'Anggota tidak ada',
+                'messageFlash' => true,
+                'type' => 'error'
+            ]);
+        }
+
+        return $this->generateKartuAnggota($anggota);
     }
 }

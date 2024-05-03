@@ -90,23 +90,16 @@
             <tr>
                 <td style="width: 100px">
                     <div style="margin-top: 15px">
-                        <img src="{{ public_path('image/logo-kemenag.png') }}" height="50px" width="50px"
-                        alt="logo kemenag">
-                        <img src="{{ public_path('image/logo-gtk-madrasah.jpeg') }}" height="50px" width="50px"
-                        alt="logo gtk madrasah"
-                        />
-                        <img src="{{ public_path('image/logo.png') }}"
+                        <img src="{{ public_path('image/logo.png') }}" height="100px" width="100px"
                         alt="logo"
                         />
                     </div>
                 </td>
                 <td style="width: 375px;">
-                    <span class="bold" style="font-size: 20px;">KEMENTERIAN AGAMA RI </span>
+                    <span class="bold" style="font-size: 20px;">ScholsLibris </span>
                     <br />
-                    <span style="font-size: 16px; margin-top: 10px;">
-                        Profil Calon Pengawas pada
-                        <br /> {{ $periode->nama_periode }}
-                        Tahun {{ explode('-', $periode->tahun)[0] }}
+                    <span style="font-size: 16px; margin-top: 50px;">
+                        Kartu Anggota Perpustakaan
                     </span>
                 </td>
                 <td style="text-align: center; width: 200px;">
@@ -115,7 +108,12 @@
                     <span class="bold">
                         <span>
                             <?php
-                            echo DNS1D::getBarcodeHTML("$pengajuan->no_pendaftaran", 'C93', 1.6, 50);
+                            echo DNS2D::getBarcodeHTML(
+                                route('download_kartu_anggota', ['anggotaId' => Crypt::encryptString($anggota->id)]),
+                                'QRCODE',
+                                3,
+                                3
+                            );
                             ?>
                         </span>
                     </span>
@@ -141,61 +139,42 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>NIK</td>
-                                <td>: <span>{!! $pendidik->nik !!}</span></td>
+                                <td>ID Anggota</td>
+                                <td>: <span>{!! $anggota->kode_anggota !!}</span>
+                                </td>
                             </tr>
                             <tr>
-                                <td>Nama Calon Pengawas </td>
-                                <td>: <span>{!! $pendidik->nama_lengkap !!}</span></td>
+                                <td>Nama </td>
+                                <td>: <span>{!! $anggota->nama !!}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Kelamin </td>
+                                <td>: <span>{!! $anggota->jenis_kelamin !!}</span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Tempat, Tanggal Lahir </td>
                                 <td>:
                                     <span>
-                                        {!! $pendidik->tempat_lahir !!} /
-                                        {!! formatTanggal($pendidik->tgl_lahir) !!}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Pangkat </td>
-                                <td>:
-                                    <span>
-                                        {!! $pendidik->pangkat !!}
+                                        {!! $anggota->tempat_lahir !!} ,
+                                        {!! formatTanggal($anggota->tanggal_lahir) !!}
                                     </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Golongan </td>
+                                <td>Alamat </td>
                                 <td>:
                                     <span>
-                                        {!! $pendidik->golongan !!}
-                                    </span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td colspan="2">
-                                    <br/>
-                                    <span class="bold" style="font-size: 17px">Detail Pendaftaran</span>
-                                    <br/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Periode</td>
-                                <td>:
-                                    <span>{!! $periode->nama_periode !!} Tahun {!! explode('-', $periode->tahun)[0] !!}
+                                        {!! $anggota->alamat !!}
                                     </span>
                                 </td>
                             </tr>
                             <tr>
-                                <td>Nama Pendaftaran</td>
-                                <td>: <span>{!! $pendaftaran->nama_program !!}</span></td>
-                            </tr>
-                            <tr>
-                                <td>Tanggal Pengajuan</td>
+                                <td>Tanggal Bergabung</td>
                                 <td>:
                                     <span>
-                                        {!! formatTanggal($pengajuan->tgl_pengajuan) !!}
+                                        {!! formatTanggal($anggota->created_at) !!}
                                     </span>
                                 </td>
                             </tr>
@@ -206,32 +185,21 @@
                 <td style="width: 30%;">
                     <div style="width: 100%;">
                         <img
-                            src="{{ public_path('storage/'.$pendidik->user->path_image) }}"
+                            src="{{ base_path('public/storage/'.$anggota->foto) }}"
                             alt=""
                             style="width: 150px; height: 200px; object-fit: cover; margin-left: 35px;"
                         />
                         <p class="text-center">
-                            Nomor Pendaftaran
+                            ID Anggota
                             <br/>
                             <span class="bold">
-                                {{ $pengajuan->no_registrasi }}
+                                {{ $anggota->kode_anggota }}
                             </span>
                         </p>
                     </div>
                 </td>
             </tr>
         </table>
-
-        <hr style="color: #D0D0D0">
-        <p class="bold" style="font-size: 17px">Kelengkapan Dokumen</p>
-        <p>Saya menyatakan dengan sesungguhnya bahwa saya
-            telah memenuhi kelengkapan dokumen sebagai <span class="bold">calon pengawas</span> yaitu:
-        </p>
-        <ol>
-            @foreach ($berkas as $item)
-            <li>{{ $item->nama_dokumen }}</li>
-            @endforeach
-        </ol>
 
 
         <table>
@@ -243,13 +211,13 @@
                 </td>
                 <td>
                     <p>
-                        <span class="bold">Dicetak Aplikasi SIAAPP</span> <br>
+                        <span class="bold">Dicetak Aplikasi ScholsLibris</span> <br>
                         Pada tanggal {{ formatTanggal(Date('Y-m-d')) }}
                     </p>
 
                     <br>
 
-                    ttd dan Materai 10.000
+                    ttd
 
                     <br>
                     <br>
