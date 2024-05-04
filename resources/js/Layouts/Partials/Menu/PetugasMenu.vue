@@ -40,7 +40,7 @@ linkActiveMaster.value = route().current('master.')
                 aria-expanded="false"
             >
                 <span>
-                    <i class="ti ti-database"></i>
+                    <i class="ti ti-arrow-bar-left"></i>
                 </span>
                 <span class="hide-menu">Peminjam</span>
             </Link>
@@ -54,7 +54,7 @@ linkActiveMaster.value = route().current('master.')
                 aria-expanded="false"
             >
                 <span>
-                    <i class="ti ti-database"></i>
+                    <i class="ti ti-arrow-bar-right"></i>
                 </span>
                 <span class="hide-menu">Pengembalian</span>
             </Link>

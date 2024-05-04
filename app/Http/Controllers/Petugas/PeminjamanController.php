@@ -101,6 +101,21 @@ class PeminjamanController extends Controller
             $request->merge([
                 'status' => 'dipinjam'
             ]);
+
+            /** @var ?Peminjam $cekPeminjam */
+            $cekPeminjam = $this->peminjam->queryWhere([
+                ['anggota_id', '=', $request->anggota_id],
+                ['buku_id', '=', $request->buku],
+            ], ['peminjams.*'])
+                ->first();
+
+            if (isset($cekPeminjam)) {
+                return to_route('petugas.peminjam.index')->withErrors([
+                    'message' => 'Anggota hanya boleh 1 buku',
+                    'messageFlash' => true,
+                    'type' => 'error'
+                ]);
+            }
             /** @var Peminjam $peminjam */
             $peminjam = $this->peminjam->create($request->all());
 
